@@ -4,7 +4,12 @@ This repository contains the Proof-of-Concept (PoC) demonstration for **UrbanVer
 
 ---
 
-## 1. Architecture Overview
+## 1. End-to-End Architecture & Integration
+
+The framework fuses numeric spatio-temporal dynamics with semantic urban knowledge to model cascading city disruptions.
+
+![UrbanVerse End-to-End Integration](urbanverse_end_to_end.png)
+
 +-----------------------------------------------------------------------------------+
 |                                    URBANVERSE                                     |
 |            (Urban Graph -> Spatio-Temporal Dynamics + Urban Knowledge)            |
@@ -41,12 +46,17 @@ Evaluated on the METR-LA traffic speed benchmark:
 | **Horizon 6** | **30 Minutes** | 11.64 mph | 13.42 mph | 26.29% |
 | **Horizon 12** | **60 Minutes** | 30.34 mph | 32.69 mph | 58.27% |
 
-- **Ground Truth vs. Prediction Profile:** `ground_truth_vs_prediction.png`
-- **Multi-Horizon Error Curves:** `pdformer_results.png`
+### Forecast Visualizations
+| Ground Truth vs. Prediction (12-Hour Profile) | Multi-Horizon Error Progression |
+| :---: | :---: |
+| ![Ground Truth vs Prediction](ground_truth_vs_prediction.png) | ![PDFormer Error Results](pdformer_results.png) |
 
 ---
 
 ## 3. Urban Knowledge Graph Scenario & Reasoning (UrbanKGent)
+
+### Knowledge Graph Topology
+![Urban Knowledge Graph](urban_kg_graph.png)
 
 ### Entity Types & Relations
 - **Entities:** `Traffic Sensor`, `Road`, `Metro Station`, `Hospital`, `Residential Area`, `School`
@@ -70,16 +80,7 @@ Evaluated on the METR-LA traffic speed benchmark:
 
 ---
 
-## 4. Visual Deliverables
-
-- `urbanverse_end_to_end.png`: End-to-end integration diagram (forecasting stream + knowledge graph).
-- `urban_kg_graph.png`: Semantic urban knowledge graph topology.
-- `ground_truth_vs_prediction.png`: 12-hour sensor forecasting evaluation curve.
-- `pdformer_results.png`: Multi-horizon MAE/RMSE error curves.
-
----
-
-## 5. Execution
+## 4. Execution
 
 ```bash
 # Run Urban Knowledge Scenario & Reasoning Engine
