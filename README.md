@@ -48,16 +48,6 @@ A structured urban knowledge graph scenario was constructed to represent physica
 
 This module fuses numeric spatio-temporal forecasts (PDFormer) with relational graph reasoning (UrbanKGent) to construct a comprehensive **Structured City Representation**.
 
-![UrbanVerse End-to-End Integration](urbanverse_end_to_end.png)
-
-### Framework Components & Dynamic Fusion Pipeline
-
-| Component | Responsibility | PoC Role & Implementation |
-| :--- | :--- | :--- |
-| **PDFormer Engine**<br>*(Spatio-Temporal Dynamics)* | Traffic speed forecasting & temporal anomaly detection | • Evaluated on METR-LA benchmark (207 sensor nodes)<br>• **MAE:** 4.18 mph @ 5-min horizon<br>• Emits real-time speed drop trigger ($< 50\text{ mph}$) |
-| **UrbanKGent Engine**<br>*(Semantic Urban Knowledge)* | Urban entity relations & multi-hop topological reasoning | • Connects physical facilities (Highway, Hospital, Metro, School)<br>• Traces cascading risk paths from road bottlenecks |
-| **Dynamic Urban Fusion**<br>*(UrbanVerse Representation)* | Structured integration of dynamic state and semantic graph | • Ingests PDFormer anomaly stream into knowledge graph<br>• Generates cascading public service disruption impact report |
-
 ### Dynamic Multi-Hop Cascading Reasoning (Integration Case Study)
 * **Research Question:** *"Which critical public services and residential zones are disrupted if PDFormer forecasts congestion along the I-10 corridor?"*
 * **Triggering Event:** Dynamic forecasting alert from PDFormer (Speed on `METR-LA Sensor #50` drops below 50 mph).
@@ -70,6 +60,16 @@ This module fuses numeric spatio-temporal forecasts (PDFormer) with relational g
   * **Hop 3 (Socio-Urban Spillover):**
     * `[Central Metro Station]` ── `serves` ──▶ `[Downtown Residential Zone]` *(Workforce commuter disruption)*
     * `[Central Metro Station]` ── `connected_to` ──▶ `[Metropolitan High School]` *(Student transit delays)*
+
+![UrbanVerse End-to-End Integration](urbanverse_end_to_end.png)
+
+### Framework Components & Dynamic Fusion Pipeline
+
+| Component | Responsibility | PoC Role & Implementation |
+| :--- | :--- | :--- |
+| **PDFormer Engine**<br>*(Spatio-Temporal Dynamics)* | Traffic speed forecasting & temporal anomaly detection | • Evaluated on METR-LA benchmark (207 sensor nodes)<br>• **MAE:** 4.18 mph @ 5-min horizon<br>• Emits real-time speed drop trigger ($< 50\text{ mph}$) |
+| **UrbanKGent Engine**<br>*(Semantic Urban Knowledge)* | Urban entity relations & multi-hop topological reasoning | • Connects physical facilities (Highway, Hospital, Metro, School)<br>• Traces cascading risk paths from road bottlenecks |
+| **Dynamic Urban Fusion**<br>*(UrbanVerse Representation)* | Structured integration of dynamic state and semantic graph | • Ingests PDFormer anomaly stream into knowledge graph<br>• Generates cascading public service disruption impact report |
 
 ---
 
