@@ -71,6 +71,28 @@ This module fuses numeric spatio-temporal forecasts (PDFormer) with relational g
 | **UrbanKGent Engine**<br>*(Semantic Urban Knowledge)* | Urban entity relations & multi-hop topological reasoning | • Connects physical facilities (Highway, Hospital, Metro, School)<br>• Traces cascading risk paths from road bottlenecks |
 | **Dynamic Urban Fusion**<br>*(UrbanVerse Representation)* | Structured integration of dynamic state and semantic graph | • Ingests PDFormer anomaly stream into knowledge graph<br>• Generates cascading public service disruption impact report |
 
+### Theoretical Coupling: PDFormer + UrbanKGent in UrbanVerse
+
+A core challenge in urban computing is that numeric spatio-temporal models operate purely on time-series matrices without understanding real-world urban semantics, while knowledge graphs maintain static relationships without dynamic awareness. UrbanVerse bridges this gap by fusing both paradigms:
+
+1. **PDFormer (City Dynamics):**
+   - **Role:** Captures high-frequency, continuous time-series traffic dynamics and spatial dependencies across sensor nodes.
+   - **Data Representation:** Numeric spatio-temporal feature matrices $X \in \mathbb{R}^{T \times N \times C}$ and distance-based adjacency matrices.
+   - **Contribution:** Acts as the real-time sensory and forecasting layer, providing the **Dynamic Urban State**.
+
+2. **UrbanKGent (Semantic City Knowledge):**
+   - **Role:** Encodes discrete, categorical physical entities (roads, metro lines, hospitals, schools) and their functional/social relationships.
+   - **Data Representation:** Relational knowledge graph triplets $(h, r, t) \in \mathcal{E} \times \mathcal{R} \times \mathcal{E}$.
+   - **Contribution:** Acts as the contextual reasoning backbone, providing **Semantic Urban Knowledge**.
+
+3. **UrbanVerse Integration (Structured City Representation):**
+   - **Coupling Mechanism:**
+     $$\text{Dynamic Urban State (PDFormer)} + \text{Semantic Urban Knowledge (UrbanKGent)} \longrightarrow \text{Structured City Representation}$$
+   - **Workflow:**
+     1. PDFormer forecasts a future anomaly or speed reduction at a specific road/sensor segment.
+     2. The anomaly signal dynamically updates the feature state of the corresponding entity node in the Knowledge Graph.
+     3. UrbanKGent executes multi-hop propagation reasoning to evaluate cascading socio-urban disruptions (e.g., transit bottlenecks, hospital emergency access delays, residential commuter impact).
+        
 ---
 
 ## 4. Execution
