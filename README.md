@@ -25,17 +25,16 @@ PDFormer was reproduced on the **METR-LA** traffic speed benchmark (207 highway 
 
 ## 2. Structured Urban Knowledge Graph Scenario & Reasoning (UrbanKGent)
 
-A structured urban knowledge graph was constructed to represent physical city facilities and their semantic dependencies.
+A structured urban knowledge graph scenario was constructed to represent physical city facilities and their semantic dependencies.
+
+### Knowledge Graph Topology
+![Urban Knowledge Graph](urban_kg_graph.png)
 
 ### Entities & Relations
 - **Entities:** `METR-LA Sensor #50`, `I-10 Highway Segment`, `Central Metro Station`, `St. Jude Hospital`, `Downtown Residential Zone`, `Metropolitan High School`
 - **Relations:** `has_traffic`, `connected_to`, `located_near`, `serves`
 
----
-
-### Urban Reasoning & Retrieval Case Studies
-
-#### Case 1: Entity Retrieval Query
+### Urban Knowledge Retrieval (UrbanKGent Core)
 * **Research Question:** *"Which urban facilities and transportation nodes are directly or indirectly related to Central Metro Station?"*
 * **KG Retrieval Mechanism:** Identifies all 1-hop inbound and outbound semantic edges linked to the target node.
 * **Retrieved Structural Context:**
@@ -43,11 +42,24 @@ A structured urban knowledge graph was constructed to represent physical city fa
   - `-> (serves) -> [Downtown Residential Zone]` (Commuter destination)
   - `-> (connected_to) -> [Metropolitan High School]` (Student transit link)
 
-#### Case 2: Multi-Hop Congestion Cascading Reasoning
-* **Research Question:** *"Which critical public services and residential zones are disrupted if traffic congestion increases along the I-10 Highway corridor?"*
-* **Triggering Event:** Dynamic forecasting alert from PDFormer (Speed on `METR-LA Sensor #50` drops below $50\text{ mph}$).
-* ### Case 2: Multi-Hop Congestion Cascading Reasoning
-* **Research Question:** *"Which critical public services and residential zones are disrupted if traffic congestion increases along the I-10 Highway corridor?"*
+---
+
+## 3. End-to-End Architecture & Integration (UrbanVerse Integration)
+
+This module fuses numeric spatio-temporal forecasts (PDFormer) with relational graph reasoning (UrbanKGent) to construct a comprehensive **Structured City Representation**.
+
+![UrbanVerse End-to-End Integration](urbanverse_end_to_end.png)
+
+### Framework Components & Dynamic Fusion Pipeline
+
+| Component | Responsibility | PoC Role & Implementation |
+| :--- | :--- | :--- |
+| **PDFormer Engine**<br>*(Spatio-Temporal Dynamics)* | Traffic speed forecasting & temporal anomaly detection | • Evaluated on METR-LA benchmark (207 sensor nodes)<br>• **MAE:** 4.18 mph @ 5-min horizon<br>• Emits real-time speed drop trigger ($< 50\text{ mph}$) |
+| **UrbanKGent Engine**<br>*(Semantic Urban Knowledge)* | Urban entity relations & multi-hop topological reasoning | • Connects physical facilities (Highway, Hospital, Metro, School)<br>• Traces cascading risk paths from road bottlenecks |
+| **Dynamic Urban Fusion**<br>*(UrbanVerse Representation)* | Structured integration of dynamic state and semantic graph | • Ingests PDFormer anomaly stream into knowledge graph<br>• Generates cascading public service disruption impact report |
+
+### Dynamic Multi-Hop Cascading Reasoning (Integration Case Study)
+* **Research Question:** *"Which critical public services and residential zones are disrupted if PDFormer forecasts congestion along the I-10 corridor?"*
 * **Triggering Event:** Dynamic forecasting alert from PDFormer (Speed on `METR-LA Sensor #50` drops below 50 mph).
 * **Multi-Hop Graph Propagation:**
   * **Hop 1 (Direct Road Bottleneck):**
@@ -59,23 +71,7 @@ A structured urban knowledge graph was constructed to represent physical city fa
     * `[Central Metro Station]` ── `serves` ──▶ `[Downtown Residential Zone]` *(Workforce commuter disruption)*
     * `[Central Metro Station]` ── `connected_to` ──▶ `[Metropolitan High School]` *(Student transit delays)*
 
-### Knowledge Graph Topology
-![Urban Knowledge Graph](urban_kg_graph.png)
 ---
-
-## 3. End-to-End Architecture & Integration (UrbanVerse Integration)
-
-This module fuses numeric spatio-temporal dynamics with relational graph reasoning to construct a comprehensive **Structured City Representation**.
-
-![UrbanVerse End-to-End Integration](urbanverse_end_to_end.png)
-
-### Framework Components & Dynamic Fusion Pipeline
-
-| Component | Responsibility | PoC Role & Implementation |
-| :--- | :--- | :--- |
-| **PDFormer Engine**<br>*(Spatio-Temporal Dynamics)* | Traffic speed forecasting & temporal anomaly detection | • Evaluated on METR-LA benchmark (207 sensor nodes)<br>• **MAE:** 4.18 mph @ 5-min horizon<br>• Emits real-time speed drop trigger ($< 50\text{ mph}$) |
-| **UrbanKGent Engine**<br>*(Semantic Urban Knowledge)* | Urban entity relations & multi-hop topological reasoning | • Connects physical facilities (Highway, Hospital, Metro, School)<br>• Traces cascading risk paths from road bottlenecks |
-| **Dynamic Urban Fusion**<br>*(UrbanVerse Representation)* | Structured integration of dynamic state and semantic graph | • Ingests PDFormer anomaly stream into knowledge graph<br>• Generates cascading public service disruption impact report |
 
 ## 4. Execution
 
