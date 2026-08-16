@@ -46,14 +46,18 @@ A structured urban knowledge graph was constructed to represent physical city fa
 #### Case 2: Multi-Hop Congestion Cascading Reasoning
 * **Research Question:** *"Which critical public services and residential zones are disrupted if traffic congestion increases along the I-10 Highway corridor?"*
 * **Triggering Event:** Dynamic forecasting alert from PDFormer (Speed on `METR-LA Sensor #50` drops below $50\text{ mph}$).
+* ### Case 2: Multi-Hop Congestion Cascading Reasoning
+* **Research Question:** *"Which critical public services and residential zones are disrupted if traffic congestion increases along the I-10 Highway corridor?"*
+* **Triggering Event:** Dynamic forecasting alert from PDFormer (Speed on `METR-LA Sensor #50` drops below 50 mph).
 * **Multi-Hop Graph Propagation:**
-  - **Hop 1 (Direct Road Bottleneck):** `METR-LA Sensor #50` $\xrightarrow{\text{has\_traffic}}$ `I-10 Highway Segment` (Congestion localized).
-  - **Hop 2 (Public Services & Transit):**
-    - `I-10 Highway Segment` $\xrightarrow{\text{connected\_to}}$ `Central Metro Station` (Transit feeder delays).
-    - `I-10 Highway Segment` $\xrightarrow{\text{located\_near}}$ `St. Jude Hospital` (Emergency access risk flagged).
-  - **Hop 3 (Socio-Urban Spillover):**
-    - `Central Metro Station` $\xrightarrow{\text{serves}}$ `Downtown Residential Zone` (Workforce commuter disruption).
-    - `Central Metro Station` $\xrightarrow{\text{connected\_to}}$ `Metropolitan High School` (Student transit delays).
+  * **Hop 1 (Direct Road Bottleneck):**
+    * `[METR-LA Sensor #50]` ── `has_traffic` ──▶ `[I-10 Highway Segment]` *(Congestion localized)*
+  * **Hop 2 (Public Services & Transit):**
+    * `[I-10 Highway Segment]` ── `connected_to` ──▶ `[Central Metro Station]` *(Transit feeder delays)*
+    * `[I-10 Highway Segment]` ── `located_near` ──▶ `[St. Jude Hospital]` *(Emergency access risk flagged)*
+  * **Hop 3 (Socio-Urban Spillover):**
+    * `[Central Metro Station]` ── `serves` ──▶ `[Downtown Residential Zone]` *(Workforce commuter disruption)*
+    * `[Central Metro Station]` ── `connected_to` ──▶ `[Metropolitan High School]` *(Student transit delays)*
 
 ### Knowledge Graph Topology
 ![Urban Knowledge Graph](urban_kg_graph.png)
