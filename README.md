@@ -25,69 +25,73 @@ PDFormer was reproduced on the **METR-LA** traffic speed benchmark (207 highway 
 
 ## 2. Structured Urban Knowledge Graph Scenario & Reasoning (UrbanKGent)
 
-A structured urban knowledge graph scenario was constructed to represent physical city facilities and their semantic dependencies.
+A structured urban knowledge graph was constructed to represent physical city facilities and their semantic dependencies.
 
 ### Knowledge Graph Topology
 ![Urban Knowledge Graph](urban_kg_graph.png)
 
 ### Entities & Relations
-- **Entities:** `Traffic Sensor`, `Road`, `Metro Station`, `Hospital`, `Residential Area`, `School`
+- **Entities:** `METR-LA Sensor #50`, `I-10 Highway Segment`, `Central Metro Station`, `St. Jude Hospital`, `Downtown Residential Zone`, `Metropolitan High School`
 - **Relations:** `has_traffic`, `connected_to`, `located_near`, `serves`
 
-### Reasoning & Retrieval Outputs
+---
 
-#### Query 1: Entity Retrieval
-- **Target:** `Central Metro Station`
-- **Retrieved Relations:**
-  - `<- (connected_to) <- [I-10 Highway Segment]`
-  - `-> (serves) -> [Downtown Residential Zone]`
-  - `-> (connected_to) -> [Metropolitan High School]`
+### Urban Reasoning & Retrieval Case Studies
 
-#### Query 2: Multi-Hop Spatial Reasoning
-- **Trigger:** Predicted speed drop on `METR-LA Sensor #50` (< 50 mph).
-- **Cascading Urban Disruption:**
-  - `1-Hop:` Bottleneck on `I-10 Highway Segment`
-  - `2-Hop:` Access delay to `Central Metro Station` & emergency route disruption for `St. Jude Hospital`
-  - `3-Hop:` Commuter delays in `Downtown Residential Zone` & student transit impact for `Metropolitan High School`
+#### Case 1: Entity Retrieval Query
+* **Research Question:** *"Which urban facilities and transportation nodes are directly or indirectly related to Central Metro Station?"*
+* **KG Retrieval Mechanism:** Identifies all 1-hop inbound and outbound semantic edges linked to the target node.
+* **Retrieved Structural Context:**
+  - `<- (connected_to) <- [I-10 Highway Segment]` (Physical transit corridor)
+  - `-> (serves) -> [Downtown Residential Zone]` (Commuter destination)
+  - `-> (connected_to) -> [Metropolitan High School]` (Student transit link)
+
+#### Case 2: Multi-Hop Congestion Cascading Reasoning
+* **Research Question:** *"Which critical public services and residential zones are disrupted if traffic congestion increases along the I-10 Highway corridor?"*
+* **Triggering Event:** Dynamic forecasting alert from PDFormer (Speed on `METR-LA Sensor #50` drops below $50\text{ mph}$).
+* **Multi-Hop Graph Propagation:**
+  - **Hop 1 (Direct Road Bottleneck):** `METR-LA Sensor #50` $\xrightarrow{\text{has\_traffic}}$ `I-10 Highway Segment` (Congestion localized).
+  - **Hop 2 (Public Services & Transit):**
+    - `I-10 Highway Segment` $\xrightarrow{\text{connected\_to}}$ `Central Metro Station` (Transit feeder delays).
+    - `I-10 Highway Segment` $\xrightarrow{\text{located\_near}}$ `St. Jude Hospital` (Emergency access risk flagged).
+  - **Hop 3 (Socio-Urban Spillover):**
+    - `Central Metro Station` $\xrightarrow{\text{serves}}$ `Downtown Residential Zone` (Workforce commuter disruption).
+    - `Central Metro Station` $\xrightarrow{\text{connected\_to}}$ `Metropolitan High School` (Student transit delays).
 
 ---
 
 ## 3. End-to-End Architecture & Integration (UrbanVerse Integration)
 
-The framework unites dynamic time-series forecasts with relational graph reasoning to generate a comprehensive **Structured City Representation**.
+This module fuses numeric spatio-temporal dynamics with relational graph reasoning to construct a comprehensive **Structured City Representation**.
 
 ![UrbanVerse End-to-End Integration](urbanverse_end_to_end.png)
-
-+-----------------------------------------------------------------------------------+
-|                                    URBANVERSE                                     |
-|            (Urban Graph -> Spatio-Temporal Dynamics + Urban Knowledge)            |
-+-----------------------------------------------------------------------------------+
-|
-+-----------------------------------+-----------------------------------+
-|                                                                       |
-v                                                                       v
-[ PDFormer Engine ]                                                 [ UrbanKGent Engine ]
-Spatio-Temporal Dynamics                                            Semantic Urban Knowledge
-
-Traffic speed forecasting                                         * Urban entities (Roads, Hospitals, Metro)
-
-Multi-horizon predictions (MAE: 4.18)                             * Semantic relations (serves, located_near)
-|                                                                       |
-+-----------------------------------+-----------------------------------+
-|
-v
-[ Dynamic Urban Knowledge Fusion ]
-* Numeric speed drop triggers graph state (< 50 mph)
-* Multi-hop reasoning evaluates cascading facility impact
-
-
+```mermaid
+flowchart TD
+    subgraph UrbanVerse ["URBANVERSE: Structured City Representation"]
+        direction TB
+        
+        subgraph Models ["Parallel Analysis Engines"]
+            direction LR
+            PDF["<b>PDFormer Engine</b><br/><i>Spatio-Temporal Dynamics</i><br/>• Speed Forecasting<br/>• MAE: 4.18 mph"]
+            UKG["<b>UrbanKGent Engine</b><br/><i>Semantic Knowledge</i><br/>• Urban Topology<br/>• Multi-hop Tracing"]
+        end
+        
+        Fusion["<b>Dynamic Urban Knowledge Fusion</b><br/>• Speed drop alert (&lt; 50 mph) triggers KG anomaly state<br/>• Evaluates cascading facility disruption across the city"]
+        
+        PDF -->|Dynamic Alert Signal| Fusion
+        UKG -->|Semantic Urban Graph| Fusion
+    end
 ---
 
 ## 4. Execution
 
+To reproduce the PoC pipelines, execute the following commands from the repository root:
+
 ```bash
 # 1. Run Urban Knowledge Scenario & Reasoning Engine
+# (Constructs the KG topology, visualizes urban_kg_graph.png, and executes Queries 1 & 2)
 python urban_kg_scenario.py
 
 # 2. Run End-to-End Integrated Pipeline
+# (Fuses PDFormer forecast speed drops with UrbanKGent multi-hop reasoning & outputs urbanverse_end_to_end.png)
 python urbanverse_integration_pipeline.py
